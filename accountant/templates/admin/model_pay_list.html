@@ -1,0 +1,9 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+    <form action="Salary/" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Выплатить" />
+    </form>
+        {{ block.super }}
+{% endblock %}
