@@ -19,8 +19,8 @@ class TypeProduct(models.Model):
     hour = models.ForeignKey(Hours, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
-        verbose_name = "Вид продукции"
-        verbose_name_plural = "Вид продукции"
+        verbose_name = "План швеи"
+        verbose_name_plural = "План швеи"
 
 
 class Operation(models.Model):

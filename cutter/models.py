@@ -7,6 +7,11 @@ CHOICE_OF_TYPE = (
     ('М', 'Мелкая')
 )
 
+Selection = (
+    ('Л', 'Лекал'),
+    ('Р', 'Раскладка')
+)
+
 
 # Ежедневный план выполнения работы
 class DailyProductionPlan(models.Model):
@@ -58,6 +63,9 @@ class WorkPerformed(models.Model):
 class Order(models.Model):
     name = models.CharField(max_length=100, verbose_name="Наименование")
     quantity = models.IntegerField(verbose_name="Количество")
+    choice = models.CharField(max_length=25, choices=Selection, verbose_name="Лекал/Раскладок", blank=True)
+    confirm = models.BooleanField(default=False, blank=True, verbose_name="Достаточность поступившего материала")
+    made = models.DateField(db_index=True, verbose_name="Срок выполнения раскроя", blank=True, null=True)
 
     class Meta:
         verbose_name = "Заказ"
