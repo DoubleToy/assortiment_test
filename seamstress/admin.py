@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 @admin.register(FactOfExecution)
 class FactOfExecutionAdmin(admin.ModelAdmin):
     list_display = ['completed', 'spent', 'user']
-    exclude = ['user']
+    exclude = ['user', 'wages']
     search_fields = ['username']
 
     def save_model(self, request, obj, form, change):
