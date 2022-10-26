@@ -1,5 +1,6 @@
 from django.contrib.admin import ModelAdmin, register
 from django.contrib.admin.templatetags import admin_modify
+from django.utils.safestring import mark_safe
 
 from .models import DailyProductionPlan, WorkPerformed, Order, TecOperation, TypeMaterials, WorkPerformedCost
 
@@ -12,17 +13,13 @@ from storekeeper.admin import WarehouseAdmin
 
 @register(DailyProductionPlan)
 class DailyProductAdmin(ImportExportActionModelAdmin):
-    list_display = (
-        'date', 'number', 'name', 'metric', 'flooring', 'remains', 'defects', 'quantity', 'spent')
+    list_display = ('date', 'number', 'name', 'metric', 'flooring', 'remains', 'defects', 'quantity', 'spent')
 
     class Meta:
         model = DailyProductionPlan
         skip_unchanged = True
         report_skipped = False
-        fields = (
-            'date', 'number', 'cloth', 'metric', 'flooring', 'remains', 'visible_defects', 'defects', 'quantity',
-            'spent',
-            'image_tag')
+        fields = ('date', 'number', 'name', 'metric', 'flooring', 'remains', 'defects', 'quantity', 'spent')
 
 
 @register(TypeMaterials)
@@ -33,8 +30,11 @@ class TypeMaterialsAdmin(ModelAdmin):
 @register(WorkPerformed)
 class WorkPerformedAdmin(ModelAdmin):
     list_display = ('size', 'spent', 'image_tag')
-    readonly_fields = ("image_tag",)
-    change_form_template = 'admin/model_change_form.html'
+    readonly_fields = ("get_image",)
+    # change_form_template = 'admin/model_change_form.html'
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src="{obj.image} width="50" height="60"">')
 
 
 @register(Order)

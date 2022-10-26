@@ -15,7 +15,7 @@ Selection = (
 
 # Ежедневный план выполнения работы
 class DailyProductionPlan(models.Model):
-    date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Дата")
+    date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Дата", blank=True)
     number = models.CharField(max_length=100, db_index=True, verbose_name="Номер")
     name = models.CharField(max_length=150, db_index=True, verbose_name="Наименование")
     metric = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Метраж")
@@ -48,12 +48,12 @@ class WorkPerformed(models.Model):
                                 verbose_name="Вид сырья")
     size = models.CharField(max_length=20, choices=CHOICE_OF_TYPE, verbose_name="Размер детали")
     spent = models.IntegerField(verbose_name="Затрачено времени (в секундах)")
-    image = models.ImageField(upload_to='media/images/%Y/%m/%d/', verbose_name="Изображение", blank=True)
+    image = models.ImageField(upload_to='images/', verbose_name="Изображение", blank=True)
 
     def image_tag(self):
-        return mark_safe('<img src="/media/%s" width="100" height="100" />' % (self.image))
-
-    image_tag.short_description = 'Image'
+        return mark_safe('<img src="%s" width="100" height="100" />' % self.image)
+    image_tag.short_description = 'Изображение'
+    image_tag.allow_tags = True
 
     class Meta:
         verbose_name = "Выполненная работа"
