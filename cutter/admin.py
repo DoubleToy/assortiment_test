@@ -30,11 +30,11 @@ class TypeMaterialsAdmin(ModelAdmin):
 @register(WorkPerformed)
 class WorkPerformedAdmin(ModelAdmin):
     list_display = ('size', 'spent', 'image_tag')
-    readonly_fields = ("get_image",)
+    readonly_fields = ("image_tag",)
     # change_form_template = 'admin/model_change_form.html'
 
-    def get_image(self, obj):
-        return mark_safe(f'<img src="{obj.image} width="50" height="60"">')
+    # def get_image(self, obj):
+    #     return mark_safe(f'<img src="{obj.image} width="50" height="60"">')
 
 
 @register(Order)

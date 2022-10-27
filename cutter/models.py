@@ -48,12 +48,11 @@ class WorkPerformed(models.Model):
                                 verbose_name="Вид сырья")
     size = models.CharField(max_length=20, choices=CHOICE_OF_TYPE, verbose_name="Размер детали")
     spent = models.IntegerField(verbose_name="Затрачено времени (в секундах)")
-    image = models.ImageField(upload_to='images/', verbose_name="Изображение", blank=True)
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name="Изображение", blank=True)
 
     def image_tag(self):
-        return mark_safe('<img src="%s" width="100" height="100" />' % self.image)
+        return mark_safe('<img src="media/%s" width="100" height="100" />' % self.image)
     image_tag.short_description = 'Изображение'
-    image_tag.allow_tags = True
 
     class Meta:
         verbose_name = "Выполненная работа"
